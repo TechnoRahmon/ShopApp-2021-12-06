@@ -1,13 +1,53 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View  } from 'react-native';
+
+import AppLoading from 'expo-app-loading'
+import * as Font from 'expo-font'
+import { enableScreens } from 'react-native-screens'
+
+//Nav Config 
+import { NavigationContainer } from '@react-navigation/native'
+// Drawer config
+import { createDrawerNavigator } from '@react-navigation/drawer'
+
+const Drawer = createDrawerNavigator();
+
+// nav Stacks 
+import ShopStack from './components/Stacks/ShopeStack'
+
+// load the font function
+const fetchFont =()=>{
+  return Font.loadAsync({
+     'share':require('./assets/fonts/Share-Regular.ttf'),
+     'share-bold':require('./assets/fonts/Share-Bold.ttf')
+   })
+}
+
+// enbleScreen to optmize performance 
+enableScreens(); 
 
 export default function App() {
+
+  const [ fontLoaded , setFontLoaded ] = useState(false);
+
+  if( !fontLoaded){
+    return <AppLoading 
+              startAsync={fetchFont}
+              onError={console.log}
+              onFinish={()=>{setFontLoaded(true)}}
+            />
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Shope APP</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+        <Drawer.Navigator>
+            <Drawer.Screen name="shopeStack" component={ShopStack} 
+              options={{unmountOnBlur:true, title:"Shop", headerShown:false, animationEnabled:false }}/>
+
+        </Drawer.Navigator>
+    </NavigationContainer>
   );
 }
 
