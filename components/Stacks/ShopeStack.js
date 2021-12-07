@@ -25,6 +25,7 @@ const Shopestack = ({navigation}) => {
       <Stack.Navigator 
       screenOptions={{
         headerStyle:styles.headerStyle,
+        headerTitleStyle:{fontFamily:'share-bold' , fontSize:22},
         animation:'none'
       }}
       >
@@ -32,7 +33,7 @@ const Shopestack = ({navigation}) => {
           {/* shop screen */}
           <Stack.Screen name="shopeHome" component={ShopScreen}
             options={{ title:"Shope", 
-                      headerTitleStyle :{fontFamily:'share' , fontSize:22},
+                     
                      
                       headerLeft:()=><HeaderButtons HeaderButtonComponent={HeaderButton}>
                           <Item title="Drawer" iconName="menu"  onPress={()=>{
@@ -49,7 +50,7 @@ const Shopestack = ({navigation}) => {
                     </HeaderButtons>
                       }} />
 
-            <Stack.Screen name="productsDetails" component={ProductDetails}
+            <Stack.Screen name="productDetails" component={ProductDetails}
                 options={({route})=>({title:route.params.productName  })}
             />
 

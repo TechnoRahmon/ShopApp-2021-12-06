@@ -5,13 +5,13 @@ import BasicText from './BasicText'
 import Colors from './../constants/Colors'
 
 
-const Productitem = ({ item , navigation }) => {
-    console.log(item);
+const Productitem = ({ item ,leftButton ,rightButton ,  navigation }) => {
+    
     return (
         <View style={styles.Item}> 
 
         <View style={styles.header}>
-            <ImageBackground  source={{uri:item.imageUrl}} style={styles.Image}>
+            <ImageBackground resizeMode="contain" source={{uri:item.imageUrl}} style={styles.Image}>
 
             </ImageBackground>
 
@@ -31,12 +31,12 @@ const Productitem = ({ item , navigation }) => {
            
             <View style={styles.Row}>
                 <View style={styles.button}>
-                    <Button title='Details' color={Colors.accent}
-                        onPress={()=>{ navigation.navigate('productsDetails',{productName:item.title, productId:item.id})}} />
+                    <Button title={leftButton.text} color={Colors.accent} 
+                        onPress={leftButton.onClick} />
                 </View>
                 <View style={styles.button}> 
-                    <Button title='Cart' color={Colors.accent}
-                        onPress={()=>{ navigation.navigate('cart')}} />
+                    <Button title={rightButton.text} color={Colors.accent}
+                        onPress={rightButton.onClick} />
                 </View>
             </View>
 
@@ -48,11 +48,11 @@ const Productitem = ({ item , navigation }) => {
 const styles = StyleSheet.create({
     Item:{
         width:'100%',
-       height:450,
+       height:350,
         backgroundColor:'#fff' , 
-        marginVertical:20,
-        paddingBottom:10
-        
+       
+        paddingBottom:40,
+        justifyContent:"space-between"
     },
     header:{
         height:'70%'
@@ -69,17 +69,19 @@ const styles = StyleSheet.create({
     },
     Image:{
         width:'100%',
-        height:'100%'
+        height:'100%',
+        position:'absolute',
+       top:0
     },  
     button:{
         justifyContent: 'center',
         alignItems: 'center',
         flexShrink:1,
-        marginBottom:15
+     
     },  
     details:{
-       flex:1,
-       height:'30%',
+     
+      
        justifyContent: 'center',
        paddingHorizontal:15
     },  
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         width:'100%',
-        marginTop:10
+       
       
     }
 })

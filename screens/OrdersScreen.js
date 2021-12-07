@@ -1,10 +1,16 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View,Text, StyleSheet} from 'react-native';
+
+import {useSelector} from 'react-redux'
 
 const Ordersscreen = () => {
+
+    const { orders } = useSelector(state=> state.order);
+    console.log('from orders screen  :', orders );
+
     return (
         <View>
-            Orders Screen
+           <Text> Orders Screen</Text>
         </View>
     );
 }

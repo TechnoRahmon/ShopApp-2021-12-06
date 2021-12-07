@@ -16,8 +16,12 @@ const Productdetails = ({ route , navigation }) => {
     return (
         <ScrollView>
             <View style={styles.screen}>
+                <View style={styles.imageBox}>
 
-                <Image source={{uri:getItem.imageUrl}} style={styles.image} />
+                     <Image resizeMode="contain" source={{uri:getItem.imageUrl}} style={styles.image} />
+                </View>
+                   
+              
                 <Text style={styles.title}> {getItem.title}  </Text>
                 <BasicText style={styles.price}>$ {getItem.price} </BasicText>
                 <BasicText style={styles.text}>{getItem.description}</BasicText>
@@ -37,8 +41,13 @@ const styles = StyleSheet.create({
         alignContent:'center'
     },
     image :{
-        width:'100%',
+       
+       width:"100%",
         height:300
+    },
+    imageBox:{
+        backgroundColor:'#fff'  ,
+        flex:1
     },
     title:{
         fontFamily:'share-bold',
@@ -57,7 +66,8 @@ const styles = StyleSheet.create({
 
     },
     button:{
-        backgroundColor:Colors.accent
+        backgroundColor:Colors.accent,
+        
     }
 })
 

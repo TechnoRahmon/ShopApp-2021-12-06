@@ -16,6 +16,11 @@ const Drawer = createDrawerNavigator();
 
 // nav Stacks 
 import ShopStack from './components/Stacks/ShopeStack'
+import OrderStack from './components/Stacks/OrdersStack'
+
+// redux 
+import { Provider } from 'react-redux'
+import Store from './store/store'
 
 // load the font function
 const fetchFont =()=>{
@@ -41,13 +46,17 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-        <Drawer.Navigator>
-            <Drawer.Screen name="shopeStack" component={ShopStack} 
-              options={{unmountOnBlur:true, title:"Shop", headerShown:false, animationEnabled:false }}/>
-
-        </Drawer.Navigator>
-    </NavigationContainer>
+    <Provider store={Store} >
+        <NavigationContainer>
+            <Drawer.Navigator>
+                <Drawer.Screen name="shopeStack" component={ShopStack} 
+                  options={{unmountOnBlur:true, title:"Shop", headerShown:false, animationEnabled:false }}/>
+ 
+                <Drawer.Screen name="orderStack" component={OrderStack} 
+                  options={{unmountOnBlur:true, title:"Orders", headerShown:false, animationEnabled:false }}/>
+            </Drawer.Navigator>
+        </NavigationContainer>
+    </Provider>
   );
 }
 
