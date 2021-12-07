@@ -16,50 +16,56 @@ const Productitem = ({ item , navigation }) => {
             </ImageBackground>
 
         </View>
-          <View style={styles.Row}>
-            <Text style={styles.title} numberOfLines={3}>{item.title}</Text>
-          </View>
+
+        <View style={styles.details}> 
+
             <View style={styles.Row}>
-     <View style={styles.details}> 
+                <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
+            </View>
+            
                    
-                    <BasicText style={styles.text}>$ {item.price} </BasicText>
-                </View>
+            <BasicText style={styles.text}>$ {item.price} </BasicText>
+          
+       
+               
+           
+            <View style={styles.Row}>
                 <View style={styles.button}>
                     <Button title='Details' color={Colors.accent}
                         onPress={()=>{ navigation.navigate('productsDetails',{productName:item.title, productId:item.id})}} />
                 </View>
-               
-           
-                
                 <View style={styles.button}> 
                     <Button title='Cart' color={Colors.accent}
                         onPress={()=>{ navigation.navigate('cart')}} />
                 </View>
             </View>
 
-           
-        </View>
+         </View> 
+    </View>
     );
 }
 
 const styles = StyleSheet.create({
     Item:{
         width:'100%',
-        height:350,
-        backgroundColor:Colors.light , 
+       height:450,
+        backgroundColor:'#fff' , 
         marginVertical:20,
         paddingBottom:10
         
     },
     header:{
-        height:'80%'
+        height:'70%'
     },
     title:{
         fontSize:20,
-        fontFamily:'share-bold'
+        fontFamily:'share-bold',
+      
+        width:'100%'
     },
     text:{
-        fontSize:18
+        fontSize:18,
+        marginBottom:10
     },
     Image:{
         width:'100%',
@@ -68,15 +74,20 @@ const styles = StyleSheet.create({
     button:{
         justifyContent: 'center',
         alignItems: 'center',
-        flex:1
+        flexShrink:1,
+        marginBottom:15
     },  
     details:{
-       flex:1
+       flex:1,
+       height:'30%',
+       justifyContent: 'center',
+       paddingHorizontal:15
     },  
     Row:{
         flexDirection:'row',
         justifyContent:'space-between',
-        width:'100%'
+        width:'100%',
+        marginTop:10
       
     }
 })
