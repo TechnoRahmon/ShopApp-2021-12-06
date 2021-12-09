@@ -6,5 +6,6 @@ export default {
     warning:'#F2CC8F',
     gray:'#e9ecef',
     lightGray:'#e9ecef',
-    darkGray :'#6c757d'
+    darkGray :'#6c757d',
+    danger:'#e63946'
 }

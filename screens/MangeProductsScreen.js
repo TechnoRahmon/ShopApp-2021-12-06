@@ -1,14 +1,59 @@
 import React from 'react';
-import {View,Text, StyleSheet} from 'react-native';
+import {View,
+        Text,
+        FlatList,
+        StyleSheet} from 'react-native';
 
-const Mangeproductsscreen = () => {
+import {PRODUCTS } from './../data/dummy_data'
+import Colors from './../constants/Colors'
+import Card from './../components/Card'
+import ProductItem from './../components/ProductItem'
+import DataNotFound  from './../components/DataNotFound'
+
+const Mangeproductsscreen = ({navigation}) => {
+
+
+  const renderProduct =(itemData)=><Card style={styles.card}><ProductItem 
+        item={itemData.item} 
+        leftButton={{text:'Edit' ,onClick:()=>{ navigation.navigate('editProduct',
+                {productId: itemData.item.id })}}}   
+        leftBtnColor={{bg:Colors.darkGray , color:Colors.dark}}
+        rightBtnColor={{bg:Colors.danger , color:Colors.dark}}
+        divider={true}
+        rightButton={{text:'Delete' ,onClick:()=>{ updateCurrentCart(itemData.item)}}}   
+        navigation={navigation} /></Card>
+
+    // if Product list is empty
+    if ( !PRODUCTS.length ){
+      return(
+        <DataNotFound  text='No Product Found, Try with adding new product!' buttonTitle='New Product'
+            CustomButtonHandler={()=>{ navigation.navigate('editProduct')}} />
+      )
+    }
+
+    // if Proudct list has Data
     return (
-        <View>
-          <Text> Mange Products Screen </Text> 
+        <View style={styles.screen}>
+            <FlatList style={{width:'100%'}}
+              data={PRODUCTS}
+                renderItem={renderProduct}
+              />
         </View>
     );
 }
 
-const styles = StyleSheet.create({})
+
+
+
+
+
+const styles = StyleSheet.create({
+  screen:{
+    flex:1,
+    alignContent:'center',
+   
+    backgroundColor:Colors.gray
+  }
+})
 
 export default Mangeproductsscreen;

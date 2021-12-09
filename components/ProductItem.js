@@ -5,7 +5,7 @@ import BasicText from './BasicText'
 import Colors from './../constants/Colors'
 
 
-const Productitem = ({ item ,leftButton ,rightButton ,  navigation }) => {
+const Productitem = ({ item ,leftButton ,leftBtnColor ,divider, rightBtnColor, rightButton ,  navigation }) => {
     
     return (
         <View style={styles.Item}> 
@@ -29,13 +29,13 @@ const Productitem = ({ item ,leftButton ,rightButton ,  navigation }) => {
        
                
            
-            <View style={styles.Row}>
+            <View style={[styles.Row , divider&&styles.divider ]}>
                 <View style={styles.button}>
-                    <Button title={leftButton.text} color={Colors.accent} 
+                    <Button title={leftButton.text} color={(leftBtnColor&&leftBtnColor.bg)|| Colors.accent} 
                         onPress={leftButton.onClick} />
                 </View>
                 <View style={styles.button}> 
-                    <Button title={rightButton.text} color={Colors.accent}
+                    <Button title={rightButton.text}  color={(rightBtnColor&&rightBtnColor.bg) || Colors.accent}
                         onPress={rightButton.onClick} />
                 </View>
             </View>
@@ -91,6 +91,11 @@ const styles = StyleSheet.create({
         width:'100%',
        
       
+    },
+    divider:{
+        borderTopWidth:1,
+        borderTopColor:Colors.gray,
+        paddingTop:10
     }
 })
 
