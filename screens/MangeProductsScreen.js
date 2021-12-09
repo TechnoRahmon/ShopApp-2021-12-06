@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View,Text, StyleSheet} from 'react-native';
 
 const Mangeproductsscreen = () => {
     return (
         <View>
-            Mange Products Screen 
+          <Text> Mange Products Screen </Text> 
         </View>
     );
 }

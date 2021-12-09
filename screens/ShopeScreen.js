@@ -35,7 +35,8 @@ const Shopescreen = ({ navigation }) => {
 
     const renderProduct =(itemData)=><Card style={styles.card}><ProductItem 
                 item={itemData.item} 
-                leftButton={{text:'Details' ,onClick:()=>{ navigation.navigate('prodcutDetails')}}}   
+                leftButton={{text:'Details' ,onClick:()=>{ navigation.navigate('productDetails',
+                        {productName:itemData.item.title, productId: itemData.item.id })}}}   
                 rightButton={{text:'Cart' ,onClick:()=>{ updateCurrentCart(itemData.item)}}}   
                 navigation={navigation} /></Card>
 

@@ -1,7 +1,8 @@
 
 
 import { 
-        UPDATE_CART 
+        UPDATE_CART,
+        CLEAR_CART
     } from './../type'
 
 const initialState = {
@@ -14,7 +15,10 @@ export default cartReducer =(state=initialState, action )=>{
 
             return {...state , cart:action.payload }
             break;
-    
+        case CLEAR_CART:
+
+            return {...state , cart:[] }
+            break;
         default:
             return state;
             break;

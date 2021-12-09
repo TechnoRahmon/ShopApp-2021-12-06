@@ -8,17 +8,22 @@ import Card from './../components/Card'
 import BasicText from './../components/BasicText'
 import CustomButton from './../components/CustomButton'
 import Colors from '../constants/Colors';
-import { PRODUCTS } from './../data/dummy_data'
+
 import NumericInput  from './../components/NumericInput'
+import DataNotFound from './../components/DataNotFound'
+
+//orderStack 
+import OrderStack from './../components/Stacks/OrdersStack'
 
 // action function
-import { updateCart } from './../store/actions/cartAction'
+import { updateCart , clearCart } from './../store/actions/cartAction'
 import { addOrder } from './../store/actions/orderAction'
 // redux
 import { useDispatch , useSelector } from 'react-redux'
 
 //Order model 
 import Order from './../models/Orders'
+import { sub } from 'react-native-reanimated';
 
 const Shopcart = ({ navigation }) => {
 
@@ -38,7 +43,7 @@ const Shopcart = ({ navigation }) => {
 
     
     const [Subtotal , setSubtotal ] = useState(getTotal());
-    const [Taxes , setTaxes ] = useState(Math.floor(Subtotal*0.75));
+    const [Taxes , setTaxes ] = useState(Math.floor(Subtotal*0.2));
     const [Shipping , setShipping ] = useState(10);
     const [Total , setTotal ] = useState(Subtotal+Taxes+Shipping);
     
@@ -46,22 +51,27 @@ const Shopcart = ({ navigation }) => {
 
     const createNewOrder= ()=>{
         let id =orders.length?'o'+( Number(orders[orders.length-1].id.slice(1))+1):'o1' ; 
-        let orderItems = cart.map(item=>{ return {['item'+item.data.id]: {amount:item.amount } }}) ; 
+        let orderItems = cart.map(item=>{ return { productId : item.data.id ,  amount:item.amount  }}) ; 
         let newOrder = new Order(id , Total , orderItems , Subtotal, Taxes , Shipping ); 
         //console.log('newOrder' , newOrder );
         dispatch(addOrder(newOrder))
+        // clear cart after creatin new order
+        dispatch(clearCart());
+        //redirect to orders screen
+        navigation.navigate('orderStack')
     }
 
     console.log('Orders ..: ' , orders );
 
     /* Use Effect  */
     useEffect(()=>{
-        setTotal(Subtotal+Shipping+Taxes)
-        setTaxes(Math.floor(Subtotal*0.2))
+        console.log('total :',Subtotal , Shipping , Taxes );
+        //setTotal(Subtotal+Shipping+Taxes)
+        //setTaxes(Math.floor(Subtotal*0.2))
        
     },[Subtotal])
 
-    console.log('Orders : ',orders );
+    console.log('Orders : ',orders, Total  );
     /******************************* */
 
     // update current cart items 
@@ -84,7 +94,13 @@ const Shopcart = ({ navigation }) => {
             --newCart[ItemIndex].amount
             dispatch(updateCart(newCart))
         }
-        setSubtotal(getTotal());
+        // calculate the summary : 
+        let subtotal = getTotal()
+        let taxes = Math.floor(subtotal*0.2);
+        let total = taxes + subtotal + Shipping
+        setSubtotal(subtotal);
+        setTaxes(taxes);
+        setTotal(total)
         console.log('Total : ********',getTotal());
 
     }
@@ -115,19 +131,9 @@ const Shopcart = ({ navigation }) => {
     //render if cart is empty !
     if ( !cart.length ){
         return(
-            <View style={styles.screen}>
-               
-                        <Card style={{...styles.card, flex:2}}>
-                            <View style={styles.itemContainer}>
-                                <BasicText style={styles.alertText}>Cart is empty, start shoping now </BasicText>
-                                <CustomButton style={styles.button} onClick={()=>{
-                                    navigation.navigate('shopeHome')
-                                }}>To Shop </CustomButton>
-                            </View>
-                        </Card>
-                       
-               
-            </View>
+            <DataNotFound buttonTitle='To Shop' text='Cart is empty, start shoping now ' CustomButtonHandler={()=>{
+                navigation.navigate('shopeHome')
+            }} />
         )
     }
     

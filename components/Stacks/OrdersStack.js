@@ -34,11 +34,17 @@ const Orderstack = ({navigation}) => {
                      
                      
                       headerLeft:()=><HeaderButtons HeaderButtonComponent={HeaderButton}>
-                          <Item title="Drawer" iconName="menu"  onPress={()=>{
-                              navigation.dispatch(DrawerActions.toggleDrawer())
-                          }} />
+                                          <Item title="Drawer" iconName="menu"  onPress={()=>{
+                                              navigation.dispatch(DrawerActions.toggleDrawer())
+                                          }} />
 
-                      </HeaderButtons>,
+                                    </HeaderButtons>,
+                      headerRight:()=><HeaderButtons HeaderButtonComponent={HeaderButton}>
+                                        <Item title="Drawer" iconName="ios-add-circle-outline"  onPress={()=>{
+                                            navigation.navigate('shopeStack')
+                                        }} />
+
+                                  </HeaderButtons>,
 
                       }} />
 

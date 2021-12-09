@@ -17,6 +17,7 @@ const Drawer = createDrawerNavigator();
 // nav Stacks 
 import ShopStack from './components/Stacks/ShopeStack'
 import OrderStack from './components/Stacks/OrdersStack'
+import MangeStack from './components/Stacks/MangeStack'
 
 // redux 
 import { Provider } from 'react-redux'
@@ -54,6 +55,10 @@ export default function App() {
  
                 <Drawer.Screen name="orderStack" component={OrderStack} 
                   options={{unmountOnBlur:true, title:"Orders", headerShown:false, animationEnabled:false }}/>
+
+                <Drawer.Screen name="mageStack" component={MangeStack} 
+                  options={{unmountOnBlur:true, title:"Mange", headerShown:false, animationEnabled:false }}/>
+
             </Drawer.Navigator>
         </NavigationContainer>
     </Provider>
