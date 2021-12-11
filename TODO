@@ -1,0 +1,13 @@
+in EditProduct Screen : 
+- add the item to the store
+- native back to mange screen
+- check if there is any productId : then show retrive the specific product from the array and show its data in the inputItems 
+
+in Mnage Screen :
+- connect with the store show the product data
+- link the delete button with delete function
+- link edit button to native to EditProduct Screen with passing the productId 
+
+in redux : 
+- add product function (in both : reducer and action )
+- delete product function (in both : reducer and action )
