@@ -1,14 +1,51 @@
 import React from 'react';
-import {View,Text, StyleSheet} from 'react-native';
+import {View,
+        Text,
+        TextInput,
+        KeyboardAvoidingView,
+        TouchableWithoutFeedback,
+        Keyboard,
+        Platform,
+        ScrollView,
+        StyleSheet} from 'react-native';
+
+import InputItems from './../components/InputItems'
 
 const Editproducts = () => {
+   
+
+    // if the platform is ios 
+    if(Platform.OS==='ios'){
+        return( 
+            <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{flex: 1,}}
+            contentContainerStyle={{flexGrow: 1,}}>
+
+                <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={30}>
+
+                        <InputItems/>
+
+                </KeyboardAvoidingView>
+
+            </ScrollView>)
+    }
+
+    
     return (
-        <View>
-           <Text> Edit Products Screen</Text>
-        </View>
+        <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{flex: 1,}}
+        contentContainerStyle={{flexGrow: 1,}}>
+         
+            <InputItems/> 
+          
+        </ScrollView>
     );
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+})
 
 export default Editproducts;
