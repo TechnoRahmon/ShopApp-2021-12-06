@@ -1,4 +1,4 @@
-import React,{useState, useEffect } from 'react';
+import React,{useState, useEffect, useCallback } from 'react';
 import {View,
         TouchableWithoutFeedback,
         TextInput,
@@ -9,8 +9,16 @@ import BasicText from './BasicText'
 import isURL from 'validator/lib/isURL'
 import isNumeric from 'validator/lib/isNumeric'
 import Colors from './../constants/Colors'
+import { addNewProduct } from './../store/actions/productAction'
+import {  useDispatch, useSelector  } from 'react-redux'
 
-const Inputitems = () => {
+
+const Inputitems = ({ navigation }) => {
+
+    
+
+    const dispatch = useDispatch();
+   
     const [productData , setProductData  ]= useState({
         title:'',
         price:'',
@@ -44,7 +52,29 @@ const Inputitems = () => {
        // console.log(text, ' ' , type );
     }
 
+    const addItemHandler =  useCallback(()=>{
+        const noError = !DataValidator.price&&!DataValidator.title&&!DataValidator.url&&!DataValidator.description;
+        const DataExisit = productData.price&&productData.title&&productData.url&&productData.description;
+      
+        if ( noError && DataExisit ){       
+            dispatch(addNewProduct({
+                title : productData.title,
+                price: productData.price,
+                description:productData.description,
+                
+            }));
+            navigation.navigate('mange')
 
+            window.alert('done')
+        }else{
+            window.alert('All Fields Are Required !')
+        }
+    },[productData ,dispatch])
+
+
+    useEffect(()=>{
+        navigation.setParams({addItem : addItemHandler  });
+    },[addItemHandler])
 
     return (
         <View>

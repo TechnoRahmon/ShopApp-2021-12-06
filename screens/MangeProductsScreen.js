@@ -9,8 +9,11 @@ import Colors from './../constants/Colors'
 import Card from './../components/Card'
 import ProductItem from './../components/ProductItem'
 import DataNotFound  from './../components/DataNotFound'
+import { useSelector } from 'react-redux'
 
 const Mangeproductsscreen = ({navigation}) => {
+
+  const { products } = useSelector(state => state.product );
 
 
   const renderProduct =(itemData)=><Card style={styles.card}><ProductItem 
@@ -24,7 +27,7 @@ const Mangeproductsscreen = ({navigation}) => {
         navigation={navigation} /></Card>
 
     // if Product list is empty
-    if ( !PRODUCTS.length ){
+    if ( !products.length ){
       return(
         <DataNotFound  text='No Product Found, Try with adding new product!' buttonTitle='New Product'
             CustomButtonHandler={()=>{ navigation.navigate('editProduct')}} />
@@ -35,7 +38,7 @@ const Mangeproductsscreen = ({navigation}) => {
     return (
         <View style={styles.screen}>
             <FlatList style={{width:'100%'}}
-              data={PRODUCTS}
+              data={products}
                 renderItem={renderProduct}
               />
         </View>

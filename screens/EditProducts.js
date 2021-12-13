@@ -11,7 +11,7 @@ import {View,
 
 import InputItems from './../components/InputItems'
 
-const Editproducts = () => {
+const Editproducts = ({ navigation }) => {
    
 
     // if the platform is ios 
@@ -38,7 +38,7 @@ const Editproducts = () => {
         style={{flex: 1,}}
         contentContainerStyle={{flexGrow: 1,}}>
          
-            <InputItems/> 
+            <InputItems navigation={navigation} /> 
           
         </ScrollView>
     );

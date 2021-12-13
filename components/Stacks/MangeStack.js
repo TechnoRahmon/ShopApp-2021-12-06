@@ -52,15 +52,15 @@ const MangeStack = ({navigation}) => {
 
         {/* Edit Products screen */}
           <Stack.Screen name="editProduct" component={EditProducts}
-            options={{ title:"Edit Products", 
+            options={({ route })=>({ title:"Edit Products", 
                       headerRight:()=><HeaderButtons HeaderButtonComponent={HeaderButton}>
                                         <Item title="Drawer" iconName="checkmark-circle-outline"  onPress={()=>{
-                                            navigation.navigate('mange')
+                                           route.params.addItem();
                                         }} />
 
                                   </HeaderButtons>,
 
-                      }} />
+                      })} />
 
 
       </Stack.Navigator>
