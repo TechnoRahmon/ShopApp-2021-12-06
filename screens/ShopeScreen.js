@@ -16,6 +16,7 @@ const Shopescreen = ({ navigation }) => {
     
     // retriving data from redux store 
     const {cart  } = useSelector(state=> state.cart ); 
+    const {products } = useSelector(state =>state.product );
 
     const dispatch = useDispatch();
 
@@ -44,7 +45,7 @@ const Shopescreen = ({ navigation }) => {
     return ( <View style={styles.screen}>
                 <FlatList style={{width:'100%'}}
                     renderItem={renderProduct}
-                    data={PRODUCTS} />
+                    data={products} />
             </View>
     );
 }

@@ -5,12 +5,13 @@ import { PRODUCTS } from './../data/dummy_data'
 import BasicText from './../components/BasicText'
 import CustomButtom  from './../components/CustomButton'
 import Colors from '../constants/Colors';
+import { useSelector } from 'react-redux'
 
 const Productdetails = ({ route , navigation }) => {
-
+    const { products } = useSelector(state => state.product)
     const {productId } = route.params;
 
-    const getItem =  PRODUCTS.find(item=> item.id === productId );
+    const getItem =  products.find(item=> item.id === productId );
 
 
     return (

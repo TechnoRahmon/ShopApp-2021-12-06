@@ -14,7 +14,7 @@ import {  useDispatch, useSelector  } from 'react-redux'
 
 
 const Inputitems = ({ navigation }) => {
-
+    const { products } = useSelector(state=> state.product );
     
 
     const dispatch = useDispatch();
@@ -56,12 +56,13 @@ const Inputitems = ({ navigation }) => {
         const noError = !DataValidator.price&&!DataValidator.title&&!DataValidator.url&&!DataValidator.description;
         const DataExisit = productData.price&&productData.title&&productData.url&&productData.description;
       
-        if ( noError && DataExisit ){       
+        if ( noError && DataExisit ){   
+            let id = products.length? Number(products[products.length-1].id.slice(1)) +1 : 'p1'; 
             dispatch(addNewProduct({
                 title : productData.title,
                 price: productData.price,
                 description:productData.description,
-                
+                imageUrl:productData.url
             }));
             navigation.navigate('mange')
 
