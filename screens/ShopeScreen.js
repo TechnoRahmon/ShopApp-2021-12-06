@@ -5,7 +5,7 @@ import ProductItem  from './../components/ProductItem'
 import Card  from './../components/Card'
 
 import Colors from './../constants/Colors'
-
+import DataNotFound from './../components/DataNotFound'
 // action fucntion 
 import { updateCart } from './../store/actions/cartAction'
 // react redux Hooks 
@@ -40,7 +40,19 @@ const Shopescreen = ({ navigation }) => {
                         {productName:itemData.item.title, productId: itemData.item.id })}}}   
                 rightButton={{text:'Cart' ,onClick:()=>{ updateCurrentCart(itemData.item)}}}   
                 navigation={navigation} /></Card>
-
+   
+    //render if cart is empty !
+    if ( !products.length ){
+        return(
+            <DataNotFound 
+                buttonTitle='To Mange' 
+                text='There is no Products Found' 
+                CustomButtonHandler={()=>{
+                    navigation.navigate('mageStack')
+                }} />
+        )
+    }
+    
 
     return ( <View style={styles.screen}>
                 <FlatList style={{width:'100%'}}

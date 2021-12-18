@@ -9,21 +9,23 @@ import BasicText from './BasicText'
 import isURL from 'validator/lib/isURL'
 import isNumeric from 'validator/lib/isNumeric'
 import Colors from './../constants/Colors'
-import { addNewProduct } from './../store/actions/productAction'
+import { addNewProduct , updateProduct  } from './../store/actions/productAction'
 import {  useDispatch, useSelector  } from 'react-redux'
 
 
-const Inputitems = ({ navigation }) => {
+const Inputitems = ({ navigation , productId }) => {
     const { products } = useSelector(state=> state.product );
-    
-
-    const dispatch = useDispatch();
    
+    const getSpecificProduct = ()=> products.find(item=> productId == item.id );
+   
+    const dispatch = useDispatch();
+    const [ addMode , setAddMode ] = useState(true);
+
     const [productData , setProductData  ]= useState({
         title:'',
         price:'',
         description:'',
-        url:''
+        imageUrl:''
 
     })
 
@@ -31,7 +33,7 @@ const Inputitems = ({ navigation }) => {
         title:'',
         price:'',
         description:'',
-        url:''
+        imageUrl:''
 
     })
 
@@ -40,7 +42,7 @@ const Inputitems = ({ navigation }) => {
         if ( !text ){
             setDataValidator({...DataValidator , [type] :type+' is required '})
 
-        }else if (type =='url' && !isURL(text)){
+        }else if (type =='imageUrl' && !isURL(text)){
             setDataValidator({...DataValidator , [type] :'invalid URL!'})
         
         }else if ( type=='price' && !isNumeric(text)){
@@ -53,29 +55,67 @@ const Inputitems = ({ navigation }) => {
     }
 
     const addItemHandler =  useCallback(()=>{
-        const noError = !DataValidator.price&&!DataValidator.title&&!DataValidator.url&&!DataValidator.description;
-        const DataExisit = productData.price&&productData.title&&productData.url&&productData.description;
-      
+        const noError = !DataValidator.price&&!DataValidator.title&&!DataValidator.imageUrl&&!DataValidator.description;
+        const DataExisit = productData.price&&productData.title&&productData.imageUrl&&productData.description;
+        console.log( noError , productData);
         if ( noError && DataExisit ){   
             let id = products.length? Number(products[products.length-1].id.slice(1)) +1 : 'p1'; 
             dispatch(addNewProduct({
+                id : id,
                 title : productData.title,
                 price: productData.price,
                 description:productData.description,
-                imageUrl:productData.url
+                imageUrl:productData.imageUrl
             }));
             navigation.navigate('mange')
 
-            window.alert('done')
+            window.alert('done!')
         }else{
             window.alert('All Fields Are Required !')
         }
     },[productData ,dispatch])
 
 
+    const updateItemHandler =  useCallback(()=>{
+        const noError = !DataValidator.price&&!DataValidator.title&&!DataValidator.imageUrl&&!DataValidator.description;
+        const DataExisit = productData.price&&productData.title&&productData.imageUrl&&productData.description;
+      
+        if ( noError && DataExisit ){   
+            let id = products.length? Number(products[products.length-1].id.slice(1)) +1 : 'p1'; 
+            dispatch(updateProduct(  productId,{
+                id :productId,
+                title : productData.title,
+                price: productData.price,
+                description:productData.description,
+                imageUrl:productData.imageUrl
+            }));
+            navigation.navigate('mange')
+
+            window.alert('done updating')
+        }else{
+            window.alert('All Fields Are Required !')
+        }
+    },[productData ,dispatch])
+
     useEffect(()=>{
-        navigation.setParams({addItem : addItemHandler  });
+  
+         navigation.setParams({addItem :addMode? addItemHandler:updateItemHandler   }); 
     },[addItemHandler])
+      
+
+    useEffect(()=>{
+        let specificProduct = getSpecificProduct();
+      
+        if ( specificProduct ){
+            setAddMode(false);
+            window.alert('update mode !')
+            setProductData({
+               ...specificProduct
+            })
+        }else{
+            setAddMode(true);
+        }
+    },[productId])
 
     return (
         <View>
@@ -127,10 +167,10 @@ const Inputitems = ({ navigation }) => {
 
                     <View style={styles.inputRow}>
                         <BasicText style={styles.label}> Product Image Url</BasicText>
-                        {DataValidator.url?<BasicText style={styles.errorMessage}>{DataValidator.url} </BasicText>:null}
+                        {DataValidator.imageUrl?<BasicText style={styles.errorMessage}>{DataValidator.imageUrl} </BasicText>:null}
                         <TextInput style={[styles.input,DataValidator.url&&{ borderColor :Colors.danger}]}
-                            defaultValue={productData.url}
-                            onChangeText={onInputChange.bind(null,'url')}
+                            defaultValue={productData.imageUrl}
+                            onChangeText={onInputChange.bind(null,'imageUrl')}
                             keyboardType={Platform.OS=='ios'?'url':'default'}
                             autoCorrect={false}
                             placeholder='Product Image Url' />

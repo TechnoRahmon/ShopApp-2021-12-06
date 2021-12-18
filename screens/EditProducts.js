@@ -9,11 +9,14 @@ import {View,
         ScrollView,
         StyleSheet} from 'react-native';
 
+
 import InputItems from './../components/InputItems'
 
-const Editproducts = ({ navigation }) => {
-   
+const Editproducts = ({ navigation, route  }) => {
+    const  productId   = route.params&&route.params.productId ;   
+ 
 
+    console.log('productId : ' , productId);
     // if the platform is ios 
     if(Platform.OS==='ios'){
         return( 
@@ -24,7 +27,7 @@ const Editproducts = ({ navigation }) => {
 
                 <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={30}>
 
-                        <InputItems/>
+                        <InputItems productId={productId} navigation={navigation} />
 
                 </KeyboardAvoidingView>
 
@@ -38,7 +41,7 @@ const Editproducts = ({ navigation }) => {
         style={{flex: 1,}}
         contentContainerStyle={{flexGrow: 1,}}>
          
-            <InputItems navigation={navigation} /> 
+            <InputItems navigation={navigation} productId={productId} /> 
           
         </ScrollView>
     );
