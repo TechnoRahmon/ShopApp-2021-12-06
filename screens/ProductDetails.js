@@ -5,14 +5,28 @@ import { PRODUCTS } from './../data/dummy_data'
 import BasicText from './../components/BasicText'
 import CustomButtom  from './../components/CustomButton'
 import Colors from '../constants/Colors';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateCart } from './../store/actions/cartAction'
 
 const Productdetails = ({ route , navigation }) => {
     const { products } = useSelector(state => state.product)
     const {productId } = route.params;
-
+    const {cart  } = useSelector(state=> state.cart ); 
     const getItem =  products.find(item=> item.id === productId );
+    const dispatch = useDispatch(); 
 
+    const updateCurrentCart=(selectedItem )=>{
+        const exisitItem = cart.findIndex((item)=> item.data.id === selectedItem.id );
+        let newCart = cart ; 
+        if ( exisitItem<0 ){
+             newCart = [ ...cart, { data : selectedItem , amount : 1 } ]
+            dispatch(updateCart(newCart))
+        }else {
+            ++newCart[exisitItem].amount
+            dispatch(updateCart(newCart))
+        }
+        navigation.navigate('cart')
+    }
 
     return (
         <ScrollView>
@@ -27,7 +41,7 @@ const Productdetails = ({ route , navigation }) => {
                 <BasicText style={styles.price}>$ {getItem.price} </BasicText>
                 <BasicText style={styles.text}>{getItem.description}</BasicText>
                 <CustomButtom style={styles.button} onClick={()=>{
-                        navigation.navigate('cart')
+                       updateCurrentCart(getItem)
                 }}> 
                     To Cart
                 </CustomButtom>

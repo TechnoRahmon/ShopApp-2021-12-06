@@ -53,7 +53,6 @@ const Shopcart = ({ navigation }) => {
         let id =orders.length?'o'+( Number(orders[orders.length-1].id.slice(1))+1):'o1' ; 
         let orderItems = cart.map(item=>{ return { productId : item.data.id ,  amount:item.amount  }}) ; 
         let newOrder = new Order(id , Total , orderItems , Subtotal, Taxes , Shipping ); 
-        //console.log('newOrder' , newOrder );
         dispatch(addOrder(newOrder))
         // clear cart after creatin new order
         dispatch(clearCart());
@@ -61,23 +60,11 @@ const Shopcart = ({ navigation }) => {
         navigation.navigate('orderStack')
     }
 
-    console.log('Orders ..: ' , orders );
 
-    /* Use Effect  */
-    useEffect(()=>{
-        console.log('total :',Subtotal , Shipping , Taxes );
-        //setTotal(Subtotal+Shipping+Taxes)
-        //setTaxes(Math.floor(Subtotal*0.2))
-       
-    },[Subtotal])
-
-    console.log('Orders : ',orders, Total  );
-    /******************************* */
 
     // update current cart items 
     const updateCurrentCart=(selectedItem,type )=>{
         const ItemIndex = cart.findIndex((item)=> item.data.id === selectedItem.id );
-        console.log('exisitItem' , ItemIndex );
         let newCart = cart ; 
         if ( type=='+' ){
             ++newCart[ItemIndex].amount
@@ -85,9 +72,8 @@ const Shopcart = ({ navigation }) => {
             dispatch(updateCart(newCart))
 
         }else if ( type =='-' && newCart[ItemIndex].amount ==1) {
-            console.log('removing .. . . .. .');
+         
             newCart.splice(ItemIndex,1)
-            console.log(newCart);
             dispatch(updateCart(newCart))
 
         }else if ( type == '-'){
@@ -101,7 +87,7 @@ const Shopcart = ({ navigation }) => {
         setSubtotal(subtotal);
         setTaxes(taxes);
         setTotal(total)
-        console.log('Total : ********',getTotal());
+     
 
     }
 

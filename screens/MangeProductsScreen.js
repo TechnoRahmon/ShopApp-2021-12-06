@@ -9,10 +9,11 @@ import Colors from './../constants/Colors'
 import Card from './../components/Card'
 import ProductItem from './../components/ProductItem'
 import DataNotFound  from './../components/DataNotFound'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch  } from 'react-redux'
+import { deleteProduct } from './../store/actions/productAction'
 
 const Mangeproductsscreen = ({navigation}) => {
-
+  const dispatch = useDispatch();
   const { products } = useSelector(state => state.product );
 
 
@@ -23,7 +24,7 @@ const Mangeproductsscreen = ({navigation}) => {
         leftBtnColor={{bg:Colors.darkGray , color:Colors.dark}}
         rightBtnColor={{bg:Colors.danger , color:Colors.dark}}
         divider={true}
-        rightButton={{text:'Delete' ,onClick:()=>{ updateCurrentCart(itemData.item)}}}   
+        rightButton={{text:'Delete' ,onClick:()=>{dispatch(deleteProduct(itemData.item.id)) }}}   
         navigation={navigation} /></Card>
 
     // if Product list is empty

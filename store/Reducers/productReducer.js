@@ -1,7 +1,8 @@
-import { ADD_PRODUCT , UPDATE_PRODUCT} from './../type'
+import { ADD_PRODUCT , UPDATE_PRODUCT , DELETE_PRODUCT} from './../type'
+import { PRODUCTS } from './../../data/dummy_data'
 
 const initialState = { 
-    products : []
+    products : PRODUCTS
 };
 
 export default  productReducer = (state=initialState , action )=>{
@@ -14,13 +15,15 @@ export default  productReducer = (state=initialState , action )=>{
          case UPDATE_PRODUCT:
                 let { id , product } = action.payload;
                 let newProducts  = state.products;
-                console.log('id ' ,id , 'product',product);
                 let specificProductIndex = state.products.findIndex(item => item.id === id );
-                console.log( 'specificProductIndex :',specificProductIndex);
                 newProducts[specificProductIndex] = product ; 
-                console.log('new Proudcts : ' ,newProducts );
                 return {...state,  products : newProducts }            
                 break;
+        
+        case DELETE_PRODUCT:
+            let newProductsAferDeleting =state.products.filter(item=> item.id !== action.payload );
+            return{ ...state  ,products: newProductsAferDeleting  }
+            break;
 
             default:
                return state;

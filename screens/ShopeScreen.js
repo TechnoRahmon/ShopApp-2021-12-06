@@ -22,7 +22,6 @@ const Shopescreen = ({ navigation }) => {
 
     const updateCurrentCart=(selectedItem )=>{
         const exisitItem = cart.findIndex((item)=> item.data.id === selectedItem.id );
-        console.log('exisitItem' , exisitItem );
         let newCart = cart ; 
         if ( exisitItem<0 ){
              newCart = [ ...cart, { data : selectedItem , amount : 1 } ]

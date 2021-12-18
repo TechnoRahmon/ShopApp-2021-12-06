@@ -20,7 +20,6 @@ const Ordersscreen = ({ navigation }) => {
     const { orders } = useSelector(state=> state.order);
     const findItem =(currentProduct)=> PRODUCTS.find((product, index )=> product.id === currentProduct.productId );
 
-    console.log('from orders screen  :', findItem({productId:'p1'}) );
 
     
     //render Order Items 
@@ -32,7 +31,6 @@ const Ordersscreen = ({ navigation }) => {
                                 
                                 {item.orderItems.map((prodcut, index )=>{
                                     let itemInfo = findItem(prodcut)
-                                    console.log('itemInfo', itemInfo);
                                     return(
                                         <View key={index} style={styles.itemContainer}>
                                             <BasicText style={styles.itemTitle}>{itemInfo.title}</BasicText>

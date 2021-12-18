@@ -56,7 +56,7 @@ const Panel = ({ total,createdAt,  children }) => {
         <Animated.View style={[styles.Container , {height:animation}]}>
              <Card >
                 <View style={styles.orderItem} onLayout={_setMinHeight}>
-                        <BasicText style={styles.Total}>{total}</BasicText>
+                        <BasicText style={styles.Total}>${total}</BasicText>
 
                         <TouchableHighlight underlayColor='#f1f1f1' onPress={toggle}>
                             <View style={styles.button}>

@@ -16,7 +16,6 @@ const Editproducts = ({ navigation, route  }) => {
     const  productId   = route.params&&route.params.productId ;   
  
 
-    console.log('productId : ' , productId);
     // if the platform is ios 
     if(Platform.OS==='ios'){
         return( 

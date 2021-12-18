@@ -57,7 +57,6 @@ const Inputitems = ({ navigation , productId }) => {
     const addItemHandler =  useCallback(()=>{
         const noError = !DataValidator.price&&!DataValidator.title&&!DataValidator.imageUrl&&!DataValidator.description;
         const DataExisit = productData.price&&productData.title&&productData.imageUrl&&productData.description;
-        console.log( noError , productData);
         if ( noError && DataExisit ){   
             let id = products.length? Number(products[products.length-1].id.slice(1)) +1 : 'p1'; 
             dispatch(addNewProduct({
@@ -68,8 +67,6 @@ const Inputitems = ({ navigation , productId }) => {
                 imageUrl:productData.imageUrl
             }));
             navigation.navigate('mange')
-
-            window.alert('done!')
         }else{
             window.alert('All Fields Are Required !')
         }
@@ -90,8 +87,6 @@ const Inputitems = ({ navigation , productId }) => {
                 imageUrl:productData.imageUrl
             }));
             navigation.navigate('mange')
-
-            window.alert('done updating')
         }else{
             window.alert('All Fields Are Required !')
         }
@@ -108,7 +103,6 @@ const Inputitems = ({ navigation , productId }) => {
       
         if ( specificProduct ){
             setAddMode(false);
-            window.alert('update mode !')
             setProductData({
                ...specificProduct
             })
